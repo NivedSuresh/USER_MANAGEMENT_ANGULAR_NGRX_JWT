@@ -1,0 +1,25 @@
+<div class="d-grid justify-content-center">
+  <div class="d-flex justify-content-center">
+    <h2>Welcome {{user.username}}</h2>
+  </div>
+  <div class="centered-card">
+    <mat-card>
+      <mat-card-content>
+        <div >
+          <img [src]="" alt="">
+        </div>
+
+        <div class="div-50">
+          <p><strong>Name: </strong>{{user.username}}</p>
+          <p><strong>Email: </strong>{{user.email}}</p>
+          <p><strong>Phone Number: </strong>{{user.phoneNumber}}</p>
+          <p><strong>Image: </strong></p>
+        </div>
+        <div>
+          <input type="file" (change)="onChange($event)">
+          <button (click)="uploadUserImage()">Upload</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

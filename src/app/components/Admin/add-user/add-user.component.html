@@ -1,0 +1,36 @@
+<form [formGroup]="userForm" (ngSubmit)="addUser()">
+    <mat-card style="background-color: black;">
+
+        <mat-card-header class="black">
+            <h1>{{usecase}}</h1>
+        </mat-card-header>
+
+        <mat-card-content class="d-grid black">
+            <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input formControlName="email" matInput>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Username</mat-label>
+                <input formControlName="username" matInput>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Phone Number</mat-label>
+                <input formControlName="phoneNumber" matInput>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Password</mat-label>
+                <input formControlName="password" matInput>
+            </mat-form-field>
+            <mat-form-field class="black">
+                <mat-label>Confirm Password</mat-label>
+                <input formControlName="confirmPassword" matInput>
+            </mat-form-field>
+        </mat-card-content>
+
+        <mat-card-actions class="mt-3 mb-2 d-flex justify-content-center black">
+          <button style="background-color: green; margin: 2px" mat-raised-button type="submit">{{usecase}}</button>
+          <button style="background-color: grey; margin: 2px" mat-raised-button (click)="onCancel()">Cancel</button>
+        </mat-card-actions>
+    </mat-card>
+</form>
