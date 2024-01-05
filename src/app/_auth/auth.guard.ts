@@ -14,21 +14,18 @@ export const CustomerAuthGuard :CanActivateFn = (route, state) =>{
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  console.log(authService.getRole, "Customer guard");
-
   if(authService.isAuthenticated) return true;
 
   router.navigate(['/login']);
   return false;
 }
 
-export const AdminAuthGuard :CanActivateFn = (route, state) => {
+export const AdminAuthGuard :CanActivateFn = async (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  console.log(authService.getRole, "Admin guard");
+  if(authService.isAuthenticated && await authService.isAdmin) return true;
 
-  if(authService.isAuthenticated && authService.isAdmin) return true;
   router.navigate(['/login']);
   return false;
 }

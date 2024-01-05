@@ -16,10 +16,10 @@ import {
   loadUserFailure,
   loadUserSuccess,
   loginUser,
-  loginUserSuccess,
+  loginUserSuccess, onLogout, onLogoutSuccess,
   updateUser,
   updateUserFailure,
-  updateUserSuccess
+  updateUserSuccess, uploadPicture, uploadPictureSuccess
 } from "./User.action";
 
 import {catchError, exhaustMap, map, of, switchMap} from "rxjs";
@@ -138,5 +138,32 @@ export class UserEffects{
       })
     )
   )
+
+  _uploadPicture = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(uploadPicture),
+      switchMap((action) => {
+        return this.userService.uploadImage(action.formData).pipe(
+          switchMap((user)=>{
+            return of(uploadPictureSuccess({user : user}), showAlert({message : "Picture updated successfully.", resultType : "OK"}))
+          }),
+          catchError((err) => of(showAlert({message : "Unable to upload image", resultType : "failure"})))
+        )
+      })
+    )
+  })
+
+  _onLogout= createEffect(()=>
+    this.actions$.pipe(
+      ofType(onLogout),
+      switchMap((action)=>{
+        return this.authService.logout().pipe(
+          switchMap((data)=>{
+            return of(
+              onLogoutSuccess(),
+              showAlert({message:`Successfully Logged out!`, resultType:'OK'}))
+          }),
+          catchError((_error)=>of(showAlert({message:`Unable to logout, ${_error.message}`, resultType:'failure'})))
+  )})))
 
 }

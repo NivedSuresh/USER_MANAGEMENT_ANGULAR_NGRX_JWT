@@ -28,7 +28,11 @@ export const OPEN_POPUP = "open popup";
 export const GET_ACTIVE_USER = "[get, user] get active user";
 export const GET_ACTIVE_USER_SUCCESS = "[get, user] get active user success";
 
+export const UPLOAD_PICTURE = "[post, user] upload image"
+export const UPLOAD_PICTURE_SUCCESS = "[post, user] upload image success"
 
+export const LOGOUT = "logout";
+export const LOGOUT_SUCCESS = "logout success";
 
 export const loadUser = createAction(
   LOAD_USER,
@@ -101,3 +105,15 @@ export const getActiveUserSuccess = createAction(
   GET_ACTIVE_USER_SUCCESS,
   props<{user : User}>()
 );
+
+export const uploadPicture = createAction(
+  UPLOAD_PICTURE,
+  props<{formData : FormData}>()
+);
+export const uploadPictureSuccess = createAction(
+  UPLOAD_PICTURE_SUCCESS,
+  props<{user : User}>()
+);
+
+export const onLogout = createAction( LOGOUT );
+export const onLogoutSuccess = createAction(LOGOUT_SUCCESS);

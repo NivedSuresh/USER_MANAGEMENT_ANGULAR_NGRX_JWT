@@ -4,9 +4,9 @@ import {
   addUserSuccess, deleteUserSuccess, getActiveUserSuccess,
   loadAllUsersFailure,
   loadAllUsersSuccess,
-  loadUserSuccess,
+  loadUserSuccess, onLogoutSuccess,
   openPopUP,
-  updateUserSuccess
+  updateUserSuccess, uploadPictureSuccess
 } from "./User.action";
 import {showAlert} from "../common/App.Action";
 import {User} from "../../models/User.model";
@@ -45,6 +45,23 @@ const _userReducer = createReducer(UserState,
   on(getActiveUserSuccess, (state, { user }) => ({
     ...state,
     user: user,
+  })),
+  on(uploadPictureSuccess, (state, { user }) => ({
+    ...state,
+    user: user,
+  })),
+  on(onLogoutSuccess, (state, {}) => ({
+    ...state,
+    user: {
+      id : "",
+      username : "",
+      email : "",
+      role : "",
+      phoneNumber : "",
+      picture : "",
+      password : "",
+      confirmPassword : ""
+    },
   })),
   on(openPopUP, (state, action) => {
     return {

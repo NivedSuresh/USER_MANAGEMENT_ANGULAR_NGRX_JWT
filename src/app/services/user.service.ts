@@ -42,4 +42,8 @@ export class UserService {
   getActiveUser() :Observable<User> {
     return this.http.get<User>(this.commonModule.concat("/get_principal"));
   }
+
+  uploadImage(formData : FormData) :Observable<User>{
+    return this.http.post<User>(this.commonModule.concat("/upload_image"), formData);
+  }
 }

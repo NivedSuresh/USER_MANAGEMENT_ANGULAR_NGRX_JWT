@@ -3,8 +3,9 @@ import {AuthService} from "../../../services/Auth/auth.service";
 import {Router} from "@angular/router";
 import {Store} from "@ngrx/store";
 import {getUser} from "../../../sharable/store/user/User.selectors";
-import {getActiveUser, getActiveUserSuccess} from "../../../sharable/store/user/User.action";
+import {getActiveUser, getActiveUserSuccess, uploadPicture} from "../../../sharable/store/user/User.action";
 import {User} from "../../../sharable/models/User.model";
+import {showAlert} from "../../../sharable/store/common/App.Action";
 
 @Component({
   selector: 'app-profile',
@@ -13,6 +14,7 @@ import {User} from "../../../sharable/models/User.model";
 })
 export class PROFILEComponent implements OnInit{
 
+  selectedFile! :File | null;
   user! :User;
   constructor(
     private authService :AuthService,
@@ -29,11 +31,17 @@ export class PROFILEComponent implements OnInit{
     })
   }
 
-  uploadUserImage() {
-
+  onChange(event: any) {
+    this.selectedFile = event.target.files[0];
   }
-
-  onChange($event: Event) {
-
+  uploadUserImage() {
+    if(!this.selectedFile) {
+      this.store.dispatch(showAlert({message : "Select an Image.",resultType : "failure"}));
+      return;
+    }
+    const formData :FormData = new FormData();
+    formData.append("file", this.selectedFile);
+    this.store.dispatch(uploadPicture({formData : formData}));
+    this.selectedFile = null;
   }
 }
